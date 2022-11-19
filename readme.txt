@@ -18,3 +18,6 @@
 
     = 1.0.0 =
     * Creating the repo with the first base model of Company House API
+
+    = 1.0.1 =
+    * Small bug fix on display
