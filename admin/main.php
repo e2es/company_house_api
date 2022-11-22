@@ -131,11 +131,14 @@ HTML;
         }
         return false;
     }
+	
+	echo "<style>".$options['e2es_ch_css']."</style>";
+	
     return <<<HTML
 		<form action="" class="e2es_ch_holder e2es-ch-form" method="post">
 		<div class="display_ch" style="margin-bottom: 1rem"></div>
 		<input type="text" class="e2es_ch_q" name="e2es_ch_q"/>
-		<button type="submit">Test it</button>
+		<button type="submit">{$options['e2es_ch_submit_button']}</button>
 		</div>
 		HTML;
 }

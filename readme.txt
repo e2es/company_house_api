@@ -21,3 +21,6 @@
 
     = 1.0.1 =
     * Small bug fix on display
+
+    = 1.0..2 =
+    * Added additional field to change button text & add custom CSS.

@@ -3,7 +3,7 @@
 Plugin Name:	E2E Company House API
 Plugin URI:		https://e2estudios.com
 Description:	Company House API is a system to allow wordpress elements to interact with Company House Data. Developed by E2E Studios LTD
-Version:		1.0.1
+Version:		1.0.2
 Author:			E2E Studios
 Author URI:		https://e2estudios.com
 License:		GPL-2.0+

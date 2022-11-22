@@ -8,7 +8,7 @@
             ?>
 
 <div class="wrap">
-    <table class="form-table" role="presentation">
+    <table class="form-table e2es-ch-table" role="presentation">
         <tbody>
         <tr>
             <th scope="row">Company House Key</th>
@@ -30,6 +30,20 @@
             <td>
 				<textarea name="e2es_ch_settings[e2es_ch_unavailable]" id="e2es-ch-unavailable" class="widefat nice-editor" rows="8"  <?=(! current_user_can( 'unfiltered_html' ) ) ? ' disabled="disabled" ' : '' ?>><?= $key['e2es_ch_unavailable'] ?></textarea>
             Utilise <code>%s</code> and it will be replaced with the company name they entered.
+				</td>
+			</tr>
+			
+									<tr>
+			<th scope="row">Button Text</th>
+            <td><input type="text" value="<?= $key['e2es_ch_submit_button'] ?>" name="e2es_ch_settings[e2es_ch_submit_button]"/></td>
+				
+			</tr>
+			
+												<tr>
+			<th scope="row">CSS Styles</th>
+				
+            <td>
+				<textarea name="e2es_ch_settings[e2es_ch_css]" id="e2es-ch-css" class="widefat nice-editor" rows="8"  <?=(! current_user_can( 'unfiltered_html' ) ) ? ' disabled="disabled" ' : '' ?>><?= $key['e2es_ch_css'] ?></textarea>
 				</td>
 			</tr>
 			
