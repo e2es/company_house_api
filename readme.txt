@@ -22,5 +22,8 @@
     = 1.0.1 =
     * Small bug fix on display
 
-    = 1.0..2 =
+    = 1.0.2 =
     * Added additional field to change button text & add custom CSS.
+
+    = 1.0.3 =
+    * Changed API option to check validity directly.

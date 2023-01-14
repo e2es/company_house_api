@@ -84,13 +84,14 @@ function e2es_ch_query()
     $options = get_option('e2es_ch_settings');
 
 
-    $url = 'https://api.company-information.service.gov.uk/advanced-search/companies';
+    $url = 'https://api.company-information.service.gov.uk/search/companies';
 	$compName = $_POST['q'];
 	$fnStr = fn (string $x) => trim(str_replace(['LTD', 'LTD.', 'LIMITED', 'LIMITED.', 'LLP', 'LLP.'], '', mb_strtoupper($x)));
 	$compNameSearch = $fnStr($compName);
 
     $q = http_build_query([
-        'company_name_includes' => $compNameSearch,
+        'q' => $compNameSearch,
+		'restrictions' => 'active-companies legally-equivalent-company-name'
     ]);
 
     $auth = base64_encode($options['e2es_ch_key']);
@@ -101,21 +102,28 @@ function e2es_ch_query()
             'Authorization' => 'Basic '.$auth]]);
 
         $body = json_decode($req['body'], true, 512, JSON_THROW_ON_ERROR);
-
-		$numMatches = array_reduce($body['items'] ?? [], fn (int $count, array $item) => $fnStr($item['company_name']) === $compNameSearch ? ($count + 1) : $count, 0);
-
-		if ($numMatches < 1) {
-			throw new RuntimeException('');
-		}
-
-        echo '<div class="alert-danger" style="padding: 10px;
+		
+		var_dump($body['total_results']);
+		
+		if($body['total_results'] > 0) {
+			echo '<div class="alert-danger" style="padding: 10px;
     color: #d11522;
     background: #f2c2c5;
     border-left: 5px solid #d11522;">'.sprintf($options['e2es_ch_unavailable'],$compName).'</div>';
-    } catch(Throwable $ex) {
-        echo '<div class="alert-info" style="padding: 10px;
+		} else {
+			echo '<div class="alert-info" style="padding: 10px;
     background: #dae8f2;
     border-left: 5px #005c9f solid;">'.sprintf($options['e2es_ch_available'],$compName).'</div>';
+		}
+
+		//$numMatches = array_reduce($body['items'] ?? [], fn (int $count, array $item) => $fnStr($item['company_name']) === $compNameSearch ? ($count + 1) : $count, 0);
+
+        
+    } catch(Throwable $ex) {
+        echo '<div class="alert-danger" style="padding: 10px;
+    color: #d11522;
+    background: #f2c2c5;
+    border-left: 5px solid #d11522;">Something went wrong, please try again.</div>';
     }
     wp_die();
 }    
@@ -131,14 +139,11 @@ HTML;
         }
         return false;
     }
-	
-	echo "<style>".$options['e2es_ch_css']."</style>";
-	
     return <<<HTML
 		<form action="" class="e2es_ch_holder e2es-ch-form" method="post">
 		<div class="display_ch" style="margin-bottom: 1rem"></div>
 		<input type="text" class="e2es_ch_q" name="e2es_ch_q"/>
-		<button type="submit">{$options['e2es_ch_submit_button']}</button>
+		<button type="submit">Test it</button>
 		</div>
 		HTML;
 }
